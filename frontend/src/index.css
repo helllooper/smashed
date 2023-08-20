@@ -7,7 +7,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.navbar {
+  font-size: 18px !important;
+}
+.navbar button {
+  font-size: inherit !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+.bg1 {
+  background-color: #f8f9fa;
+}
+
+.bg2 {
+  background-color: #DAE0E5;
 }

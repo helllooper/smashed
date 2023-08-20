@@ -1,13 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import "bootstrap/dist/css/bootstrap.min.css"
 import './index.css';
 import App from './App';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom"
 import reportWebVitals from './reportWebVitals';
+import HomeScreen from './screens/HomeScreen';
+import ProductScreen from './screens/ProductScreen';
+import MerchScreen from './screens/MerchScreen';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<App />}>
+      <Route index={true} path="/" element={<HomeScreen />}/>
+      <Route  path="/product/:id" element={<ProductScreen />}/>
+      <Route  path="/merch/:id" element={<MerchScreen />}/>
+    </Route>
+  )
+)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
