@@ -1,10 +1,21 @@
+import { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {Link} from "react-router-dom"
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import products from "../products.js";
+import axios from "axios";
+
 const TopProducts = () => {
+  const [products,setProducts] = useState([]);
+  useEffect(() => {
+   const fetchProducts = async () => {
+    const {data} = await axios.get("/api/products");
+    setProducts (data);
+   }
+
+   fetchProducts();
+  },[])
   return (
     <div className="bg2 py-5">
         <div className="text-center">

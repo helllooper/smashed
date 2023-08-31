@@ -1,17 +1,27 @@
+import { useEffect, useState } from "react";
 import {useParams} from "react-router-dom"
-import products from "../merch"
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
+import axios from "axios";
 
 const MerchScreen = () => {
+    const [product, setProduct] = useState({});
     const {id:productId} = useParams();
-    const product = products.find((p) => p._id === productId )
-    console.log(product)
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const {data} = await axios.get(`/api/merch/${productId}`)
+            setProduct(data);
+        }
+        fetchProduct();
+    },[productId])
   return (
     <Container className="py-5">
+        {
+    Object.keys(product).length === 0 && product.constructor === Object ? null : (
+
         <Row>
             <Col sm={12} md={6} lg={4}>
                 <Image src={product.image} fluid/>
@@ -38,7 +48,7 @@ const MerchScreen = () => {
                     <div>
                         <h5 className="mt-3 mb-2">{product.options.name}:</h5>
                         <Row className="g-1">
-                          {product.options.optionsNames.map(option => (
+                          { product.options.optionsNames.map(option => (
                           <Col xs="auto">
                             <Button size="sm" className="px-3">{option}</Button>
                           </Col>)
@@ -56,7 +66,10 @@ const MerchScreen = () => {
                 </div>
             </Col>
         </Row>
-    </Container>
+
+    )
+                          }
+</Container>
   )
 }
 

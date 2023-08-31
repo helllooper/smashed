@@ -1,7 +1,11 @@
 import express from "express";
 import products from "./data/products.js";
 import merchProducts from "./data/merch.js";
-const port = 5000;
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+dotenv.config();
+const port = process.env.PORT || 5000;
+connectDB();
 const app = express();
 
 app.get("/", (req, res) => {
@@ -27,9 +31,7 @@ app.get("/api/merch/:id", (req, res) => {
     res.json(merchProduct);
   })
 
-app.get("api/merch/:id", (req, res) => {
 
-})
 
 app.listen(port , () => {
     console.log(`Server is runnung on port ${port} , hehehehe`)

@@ -1,14 +1,25 @@
+import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom"
-import products from "../products"
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
+import axios from "axios";
 const ProductScreen = () => {
+  const [product, setProduct] = useState({
+
+  })
     const {id:productId} = useParams();
-    const product = products.find((p) => p._id === productId )
-    console.log(product)
+    useEffect(() => {
+      const fetchProduct = async() => {
+        const {data} = await axios.get(`/api/products/${productId}`);
+        console.log(data);
+        setProduct(data);
+      }
+      fetchProduct();
+      console.log(product);
+    },[productId]);
   return (
     <Container className="py-5">
         <Row>
@@ -23,7 +34,8 @@ const ProductScreen = () => {
                     <div>
                         <h5 className="mt-3 mb-2">Flavors :</h5>
                         <Row className="g-1">
-                          {product.flavors.map(flavor => (
+                          {console.log(product.flavors)}
+                          {product.flavors && product.flavors.map(flavor => (
                           <Col xs="auto">
                             <Button size="sm" className="px-3">{flavor.name}</Button>
                           </Col>)

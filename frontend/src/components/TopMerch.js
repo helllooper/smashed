@@ -1,10 +1,22 @@
+import {useEffect, useState} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import products from "../merch.js";
+import axios from "axios";
+// import products from "../merch.js";
+
 import {Link} from "react-router-dom"
+import React from "react";
 const TopMerch = () => {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+     const fetchMerchProducts = async () => {
+      const {data} = await axios.get("/api/merch");
+      setProducts(data);
+     }
+     fetchMerchProducts();
+  },[])
   return (
     <div className="bg2 py-5">
         <div className="text-center">
